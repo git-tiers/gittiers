@@ -26,6 +26,24 @@ a {
   text-decoration: none;
 }
 
+.flex-box{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  &.space-between{
+    justify-content: space-between;
+  }
+  &.center{
+    justify-content: center;
+  }
+  &.start{
+    justify-content: flex-start;
+  }
+  &.end{
+    justify-content: flex-end;
+  }
+}
+
 @font-face {
   font-family: "Poppins";
   font-weight: 300;

@@ -1,9 +1,9 @@
 export const Color = {
   Primary: '#454DFF',
+  Primary2: '#EAEAFF',
+  Primary3: '#F0F8FF',
 
-  Blue100: '#3c78e1',
-
-  Red100: '#D72638',
+  Red100: '#F94439',
   Red200: '#d6163b',
 
   Green100: '#1B5E20',
@@ -20,7 +20,7 @@ export const Color = {
   Black100: '#333333',
   Black200: '#666666',
 
-  Bg100: '#EBECF0',
+  Bg100: '#F5F5F5',
 
   SwaggerBlue: '#61affe',
   SwaggerGreen: '#49cc90',
