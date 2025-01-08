@@ -7,15 +7,13 @@ import { Color } from '@/styles/color';
 export default function MainPage() {
   return (
     <S.Wrapper>
-      <h1>Git Tiers</h1>
+      contents
     </S.Wrapper>
   );
 }
 
 const S = {
   Wrapper: styled.div`
-    position: relative;
-    min-height: 100vh;
-    background-color: ${Color.Bg100};
+
   `,
 }
