@@ -15,7 +15,6 @@ export default function MainPage() {
 const S = {
   Wrapper: styled.div`
     position: relative;
-    width: 100vw;
     min-height: 100vh;
     background-color: ${Color.Bg100};
   `,
