@@ -10,8 +10,8 @@ import { Color } from '@/styles/color';
 export const Container = ({ children }: { children: React.ReactNode }) => {
   return(
     <Box component="main">
-      <Toolbar />
       <S.Inner>
+        <Toolbar />
         {children}
       </S.Inner>
     </Box>
@@ -20,8 +20,8 @@ export const Container = ({ children }: { children: React.ReactNode }) => {
 
 const S = {
   Inner: styled.div`
-    padding: 32px;
     position: relative;
+    padding: 32px;
     min-height: 100vh;
     background-color: ${Color.Bg100};
   `

@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useSession, signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useSession, signOut } from 'next-auth/react';
+import styled from '@emotion/styled';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -18,6 +20,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
+import Badge from '@mui/material/Badge';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import LanguageIcon from '@mui/icons-material/Language';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LoginIcon from '@mui/icons-material/Login';
@@ -42,7 +46,11 @@ export const Header = (props: Props) => {
   const [userInfo, setUserInfo] = useState<TUser>();
 
   const handleGitLogin = async () => {
-    router.push('/api/auth/signin');
+    await signIn('github');
+  }
+
+  const handleMyPage = () => {
+    router.push('/my');
   }
 
   const handleDrawerToggle = () => {
@@ -103,7 +111,7 @@ export const Header = (props: Props) => {
 
   // pc
   return (
-    <Box sx={{ display: 'flex'}}>
+    <S.Header>
       <CssBaseline />
       <AppBar component="nav" style={{background: Color.Primary, padding: "0 10px"}}>
         <Toolbar>
@@ -118,34 +126,44 @@ export const Header = (props: Props) => {
           </IconButton>
           <div className="flex-box space-between">
             <Logo />
-            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+            <S.Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+              {/*notification*/}
+                <IconButton
+                  onClick={() => {}}
+                >
+                  <Badge badgeContent={1} color="error">
+                    <NotificationsIcon />
+                  </Badge>
+                </IconButton>
+
+              {/*github*/}
+              <Link href="https://github.com/git-tiers/gittiers" rel="noopener noreferrer" target="_blank">
+                <IconButton
+                >
+                  <GitHubIcon />
+                </IconButton>
+              </Link>
+              {/*language*/}
               <IconButton
-                sx={{ color: '#fff' }}
-                onClick={() => router.push('https://github.com/git-tiers/gittiers')}
-              >
-                <GitHubIcon />
-              </IconButton>
-              <IconButton
-                sx={{ color: '#fff', margin: '0 10px' }}
                 onClick={() => {}}
               >
                 <LanguageIcon />
               </IconButton>
+              {/*login*/}
               {isLogin ?
+
                 <IconButton
-                  sx={{ color: '#fff' }}
-                  onClick={() => {}}
+                  onClick={handleMyPage}
                 >
                   <Avatar alt="user-profile" src={userInfo?.image} />
                 </IconButton> :
                 <Button
-                  sx={{ color: '#fff' }}
                   onClick={handleGitLogin}
                 >
                   Login
                 </Button>
               }
-            </Box>
+            </S.Box>
           </div>
         </Toolbar>
       </AppBar>
@@ -166,6 +184,27 @@ export const Header = (props: Props) => {
           {drawer}
         </Drawer>
       </nav>
-    </Box>
+    </S.Header>
   );
+}
+
+const S = {
+  Header: styled(Box)`
+
+  `,
+  Box: styled(Box)`
+    > button{
+      color: #fff;
+      margin-right: 10px;
+      &:last-child{
+        margin: 0;
+      }
+    }
+    > a{
+      button{
+        color: #fff;
+        margin-right: 10px;
+      }
+    }
+  `
 }
