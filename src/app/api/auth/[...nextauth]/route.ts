@@ -25,8 +25,15 @@ const handler = NextAuth({
           },
         });
         if (res.ok) {
-          const user = await res.json();
-          token.loginId = user?.login;
+          try {
+            const userData = await res.json();
+            token.loginId = userData?.login || null;
+            token.company = userData?.company || null;
+            token.location = userData?.location || null;
+            token.bio = userData?.bio || null;
+          } catch (error) {
+            console.error('Failed to parse user data:', error);
+          }
         }
       }
       return token;
@@ -34,6 +41,12 @@ const handler = NextAuth({
     async session({ session, token }) {
       session.accessToken = token.accessToken as string;
       session.loginId = token.loginId as string;
+      session.user = {
+        ...session.user,
+        company: token.company as string | null,
+        location: token.location as string | null,
+        bio: token.bio as string | null,
+      };
       return session;
     },
   },
