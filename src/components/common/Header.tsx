@@ -28,7 +28,6 @@ import LoginIcon from '@mui/icons-material/Login';
 
 import { Color } from '@/styles/color';
 import { Logo } from '@/components/common/Logo';
-import { TUser } from '@/types/userType';
 
 interface Props {
   window?: () => Window;
@@ -43,10 +42,10 @@ export const Header = (props: Props) => {
   const container = window !== undefined ? () => window().document.body : undefined;
   const [mobileOpen, setMobileOpen] = useState<boolean>(false);
   const [isLogin, setIsLogin] = useState<boolean>(false);
-  const [userInfo, setUserInfo] = useState<TUser>();
+  const [userImg, setUserImg] = useState<string>("");
 
   const handleGitLogin = async () => {
-    await signIn('github');
+    await signIn('github', {callbackUrl: '/my'});
   }
 
   const handleMyPage = () => {
@@ -97,12 +96,7 @@ export const Header = (props: Props) => {
     if(status === "authenticated"){
       setIsLogin(true);
       if(session){
-        console.log(session)
-        setUserInfo({
-          email: session?.user?.email,
-          image: session?.user?.image,
-          name: session?.user?.name,
-        })
+        setUserImg(session?.user?.image);
       }
     }else{
       setIsLogin(false);
@@ -155,7 +149,7 @@ export const Header = (props: Props) => {
                 <IconButton
                   onClick={handleMyPage}
                 >
-                  <Avatar alt="user-profile" src={userInfo?.image} />
+                  <Avatar alt="user-profile" src={userImg} />
                 </IconButton> :
                 <Button
                   onClick={handleGitLogin}
