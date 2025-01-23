@@ -7,27 +7,23 @@ import styled from '@emotion/styled';
 import { Color } from '@/styles/color';
 import { Title } from '@/components/common/Title';
 import { Profile } from '@/components/pages/my/Profile';
+import { MakeTier } from '@/components/pages/my/MakeTier';
 
 export default function myPage() {
 
-  const { data: session } = useSession();
-
-  console.log(session)
   return(
-    <S.Wrap>
+    <S.Wrapper>
       <Title title="My Page" />
       <S.FlexBox>
         <Profile />
-        <div>
-d
-        </div>
+        <MakeTier />
       </S.FlexBox>
-    </S.Wrap>
+    </S.Wrapper>
   )
 }
 
 const S = {
-  Wrap: styled.div`
+  Wrapper: styled.div`
     width: 80%;
     margin: 0 auto;
   `,
@@ -36,6 +32,10 @@ const S = {
     justify-content: space-between;
     align-items: flex-start;
     margin-top: 50px;
+    > div{
+      &:first-child{width: auto;}
+      &:last-child{width: 70%;}
+    }
   `,
   ProfileImg: styled(Avatar)`
     width: 250px;

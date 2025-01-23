@@ -22,15 +22,6 @@ export const Color = {
 
   Bg100: '#F5F5F5',
 
-  SwaggerBlue: '#61affe',
-  SwaggerGreen: '#49cc90',
-  SwaggerOrange: '#fca130',
-  SwaggerRed: '#f93e3e',
-  SwaggerBlueOp: '#61affe1a',
-  SwaggerGreenOp: '#49cc901a',
-  SwaggerOrangeOp: '#fca1301a',
-  SwaggerRedOp: '#f93e3e1a',
-
   AlertSuccess: '#e6fdec',
   AlertError: '#fbecec',
 }
