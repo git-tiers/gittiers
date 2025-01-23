@@ -1,23 +1,26 @@
 import { useSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import html2canvas from "html2canvas";
 import styled from '@emotion/styled';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import DownloadIcon from '@mui/icons-material/Download';
 
 import { getContributeCount } from '@/utils/github';
 import { getTierImage, getTierText } from '@/utils/getTier';
 import { Color } from '@/styles/color';
+import Button from '@mui/material/Button';
 
 export const MakeTier = () => {
   const { data: session } = useSession();
   const [contributeCount, setContributeCount] = useState<number>(0);
   const [tierImage, setTierImage] = useState<string>('');
   const [tierText, setTierText] = useState<string>('');
-  const [isCard, setIsCard] = useState<string>("image");
+  const [isCard, setIsCard] = useState<string>("card");
   const [isText, setIsText] = useState<string>("exist");
   const [isMode, setIsMode] = useState<string>("light");
   const [loading, setLoading] = useState<boolean>(true);
@@ -47,6 +50,22 @@ export const MakeTier = () => {
     setIsMode(event.target.value);
   };
 
+  const handleDownload = async () => {
+    const element = document.getElementById("tierCard");
+    if (!element) return;
+    const canvas = await html2canvas(element, {
+      scrollX: 0,
+      scrollY: -window.scrollY,
+      windowWidth: document.documentElement.offsetWidth,
+      windowHeight: document.documentElement.offsetHeight,
+    });
+    const dataURL = canvas.toDataURL("image/png");
+    const link = document.createElement("a");
+    link.href = dataURL;
+    link.download = `${session?.loginId}-tiers.png`;
+    link.click();
+  };
+
   useEffect(() => {
     handleGithubData();
   }, [session?.accessToken]);
@@ -65,7 +84,8 @@ export const MakeTier = () => {
     <S.Wrapper>
       <p>Total Contributions: <b>{contributeCount || 0}</b></p>
       <S.TierWrap>
-        <S.ImgWrap form={isCard} text={isText} mode={isMode}>
+        <div id="tierCard" style={{background: isMode === "light" ? "#ffffff" : "#0d1117"}}>
+          <S.ImgWrap form={isCard} text={isText} mode={isMode}>
           <div>
             {tierImage && <img src={tierImage} alt="tier-image" />}
             {(isText === "exist" && isCard === "image") && <span>{tierText}</span>}
@@ -79,6 +99,7 @@ export const MakeTier = () => {
             </div>
           }
         </S.ImgWrap>
+        </div>
 
         <S.Controller>
           <FormControl>
@@ -86,12 +107,12 @@ export const MakeTier = () => {
             <RadioGroup
               row
               aria-labelledby="form-group-label"
-              defaultValue="image"
+              defaultValue="card"
               name="form-group"
               value={isCard}
               onChange={handleFormChange}
             >
-              <FormControlLabel value="image" control={<Radio />} label="IMAGE" />
+              <FormControlLabel value="image" control={<Radio />} label="SIMPLE" />
               <FormControlLabel value="card" control={<Radio />} label="CARD" />
             </RadioGroup>
           </FormControl>
@@ -125,6 +146,7 @@ export const MakeTier = () => {
           </FormControl>
         </S.Controller>
       </S.TierWrap>
+      <Button startIcon={<DownloadIcon />} variant="contained" onClick={handleDownload}>Image Download</Button>
     </S.Wrapper>
   )
 }
@@ -142,6 +164,12 @@ const S = {
     display: flex;
     align-items: flex-start;
     justify-content: center;
+    #tierCard{
+      border: none; /* 확인 */
+      box-shadow: none; /* 확인 */
+      margin: 0;
+      padding: 0;
+    }
   `,
   ImgWrap: styled.div<{ form?: string, text?: string, mode?: string }>`
     color: ${(props) => props.mode === "light" ? "#0d1117" : "#ffffff"};
@@ -149,12 +177,14 @@ const S = {
     min-width: 170px;
     min-height: 170px;
     border: 2px solid ${Color.Gray300};
+    border-color: ${(props) => props.mode === "light" ? "#0d1117" : "#ffffff"};
     border-radius: 12px;
     padding: 20px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
+    margin: 5px;
     img{
       width: 130px;
     }
@@ -175,7 +205,7 @@ const S = {
         font-weight: 600;  
       }
       p.login-id{
-        font-size: 18px;
+        font-size: 20px;
         font-weight: 600;
       }
       p.total{
