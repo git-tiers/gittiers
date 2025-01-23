@@ -1,4 +1,5 @@
 import { signOut, useSession } from 'next-auth/react';
+import Link from 'next/link';
 import styled from '@emotion/styled';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -9,7 +10,6 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 import { Color } from '@/styles/color';
-import Link from 'next/link';
 
 export const Profile = () => {
 
@@ -20,7 +20,7 @@ export const Profile = () => {
   }
 
   return (
-    <S.Wrap>
+    <S.Wrapper>
       <S.ProfileImg alt="profile-image" src={session?.user.image} />
       <p>{session?.user.name || ''}</p>
       <h5>{session?.loginId || ''}</h5>
@@ -36,12 +36,12 @@ export const Profile = () => {
         </Link>
         <Button startIcon={<LogoutIcon />}  variant="outlined" onClick={handleGitLogout}>Logout</Button>
       </S.ButtonWrap>
-    </S.Wrap>
+    </S.Wrapper>
   )
 }
 
 const S = {
-  Wrap: styled.div`
+  Wrapper: styled.div`
     p{
       font-size: 24px;
       margin-top: 20px;
