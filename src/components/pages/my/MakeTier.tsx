@@ -16,6 +16,7 @@ import { getTierImage, getTierText } from '@/utils/getTier';
 import { Color } from '@/styles/color';
 import Button from '@mui/material/Button';
 import Link from 'next/link';
+import { LoadingSpinner } from '@/components/common/LoadingSpinner';
 
 export const MakeTier = () => {
   const { data: session } = useSession();
@@ -34,8 +35,13 @@ export const MakeTier = () => {
         accessToken: session?.accessToken,
         loginId: session?.loginId
       });
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
       if(res === "ERROR"){
+        setTimeout(() => {
+          setLoading(false);
+        }, 500);
         return toast.error("An error occurred. Please try again later.");
       }
       setContributeCount(res);
@@ -154,6 +160,8 @@ export const MakeTier = () => {
           <Button startIcon={<ArticleIcon />} variant="outlined">Tiers Table</Button>
         </Link>
       </S.ButtonWrap>
+
+      <LoadingSpinner loading={loading} />
     </S.Wrapper>
   )
 }
