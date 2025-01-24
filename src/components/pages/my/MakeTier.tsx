@@ -9,11 +9,13 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import DownloadIcon from '@mui/icons-material/Download';
+import ArticleIcon from '@mui/icons-material/Article';
 
 import { getContributeCount } from '@/utils/github';
 import { getTierImage, getTierText } from '@/utils/getTier';
 import { Color } from '@/styles/color';
 import Button from '@mui/material/Button';
+import Link from 'next/link';
 
 export const MakeTier = () => {
   const { data: session } = useSession();
@@ -77,33 +79,33 @@ export const MakeTier = () => {
       setTierImage(imgUrl);
       setTierText(text);
     }
-
   }, [contributeCount]);
 
   return(
     <S.Wrapper>
       <p>Total Contributions: <b>{contributeCount || 0}</b></p>
       <S.TierWrap>
-        <div id="tierCard" style={{background: isMode === "light" ? "#ffffff" : "#0d1117"}}>
-          <S.ImgWrap form={isCard} text={isText} mode={isMode}>
-          <div>
-            {tierImage && <img src={tierImage} alt="tier-image" />}
-            {(isText === "exist" && isCard === "image") && <span>{tierText}</span>}
+        <div style={{minHeight: "220px"}}>
+          <div id="tierCard" style={{backgroundColor: isMode === "light" ? "#ffffff" : "#0d1117"}}>
+            <S.ImgWrap form={isCard} text={isText} mode={isMode}>
+              <div>
+                {tierImage && <img src={tierImage} alt="tier-image" />}
+                {(isText === "exist" && isCard === "image") && <span>{tierText}</span>}
+              </div>
+              {isCard === "card" &&
+                <div className="right">
+                  {isText === 'exist' && <p className="tier-text">{tierText}</p>}
+                  <p className="login-id">{session?.loginId}</p>
+                  <p className="total">Total Contributions <b>{contributeCount || 0}</b></p>
+                  <p className="footer">Created by Git TIERS</p>
+                </div>
+              }
+          </S.ImgWrap>
           </div>
-          {isCard === "card" &&
-            <div className="right">
-              {isText === 'exist' && <p className="tier-text">{tierText}</p>}
-              <p className="login-id">{session?.loginId}</p>
-              <p className="total">Total Contributions <b>{contributeCount || 0}</b></p>
-              <p className="footer">Created by Git TIERS</p>
-            </div>
-          }
-        </S.ImgWrap>
         </div>
-
         <S.Controller>
           <FormControl>
-            <FormLabel id="form-group-label">Form</FormLabel>
+            <FormLabel id="form-group-label">Type</FormLabel>
             <RadioGroup
               row
               aria-labelledby="form-group-label"
@@ -146,7 +148,12 @@ export const MakeTier = () => {
           </FormControl>
         </S.Controller>
       </S.TierWrap>
-      <Button startIcon={<DownloadIcon />} variant="contained" onClick={handleDownload}>Image Download</Button>
+      <S.ButtonWrap>
+        <Button startIcon={<DownloadIcon />} variant="contained" onClick={handleDownload}>Image Download</Button>
+        <Link href="https://github.com/git-tiers/gittiers?tab=readme-ov-file#tier-table" rel="noopener noreferrer" target="_blank">
+          <Button startIcon={<ArticleIcon />} variant="outlined">Tiers Table</Button>
+        </Link>
+      </S.ButtonWrap>
     </S.Wrapper>
   )
 }
@@ -159,16 +166,14 @@ const S = {
     }
   `,
   TierWrap: styled.div`
-    margin: 50px auto 0;
+    margin: 30px auto 0;
     padding: 30px;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
+    flex-direction: column;
     #tierCard{
-      border: none; /* 확인 */
-      box-shadow: none; /* 확인 */
-      margin: 0;
-      padding: 0;
+      padding: 5px;
     }
   `,
   ImgWrap: styled.div<{ form?: string, text?: string, mode?: string }>`
@@ -184,7 +189,6 @@ const S = {
     justify-content: space-between;
     align-items: center;
     position: relative;
-    margin: 5px;
     img{
       width: 130px;
     }
@@ -234,11 +238,28 @@ const S = {
     }
   `,
   Controller: styled.div`
-    margin-left: 50px;
+    margin-top: 20px;
     text-align: left;
     > div{
-      display: block;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
       margin-bottom: 14px;
+      &:last-child{
+        margin: 0;
+      }
+      > label{
+        width: 120px;
+      }
+    }
+  `,
+  ButtonWrap: styled.div`
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    > button{
+      margin: 0 5px;
     }
   `
 }

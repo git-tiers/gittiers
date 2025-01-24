@@ -33,7 +33,7 @@ const S = {
     align-items: flex-start;
     margin-top: 50px;
     > div{
-      &:first-child{width: auto;}
+      &:first-of-type{width: auto;}
       &:last-child{width: 70%;}
     }
   `,

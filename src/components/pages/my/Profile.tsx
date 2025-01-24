@@ -42,6 +42,8 @@ export const Profile = () => {
 
 const S = {
   Wrapper: styled.div`
+    padding: 30px 50px 30px 0;
+    border-right: 1px solid ${Color.Gray200};
     p{
       font-size: 24px;
       margin-top: 20px;
