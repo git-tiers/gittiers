@@ -1,4 +1,5 @@
-## ![스크린샷 2025-01-24 162630](https://github.com/user-attachments/assets/08e20aca-bb19-4c53-9181-b424e91e2c6a)
+## Git TIERS
+![스크린샷 2025-01-24 162630](https://github.com/user-attachments/assets/08e20aca-bb19-4c53-9181-b424e91e2c6a)
 
 <br/>
 
