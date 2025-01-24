@@ -21,7 +21,7 @@ export const Container = ({ children }: { children: React.ReactNode }) => {
 const S = {
   Inner: styled.div`
     position: relative;
-    padding: 32px;
+    padding: 32px 0 0;
     min-height: 100vh;
     background-color: ${Color.Bg100};
   `
