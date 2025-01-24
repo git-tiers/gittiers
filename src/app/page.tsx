@@ -169,12 +169,13 @@ const S = {
   `,
   HowToCont: styled.div`
     background-color: ${Color.Primary3};
-    padding: 100px 0;
+    padding: 150px 0;
     h3{
       font-size: 50px;
       margin-bottom: 50px;
     }
     ul{
+      margin-bottom: 50px;
       li{
         font-size: 20px;
         margin-bottom: 20px;
@@ -188,7 +189,7 @@ const S = {
     }
     button{
       background-color: ${Color.Primary};
-      margin-top: 50px;
+      margin-top: 60px;
       width: 260px;
       padding: 10px 0;
       font-size: 18px;

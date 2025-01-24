@@ -48,6 +48,10 @@ export const Header = (props: Props) => {
     await signIn('github', {callbackUrl: '/my'});
   }
 
+  const handleNotice = () => {
+    router.push('/notice');
+  }
+
   const handleMyPage = () => {
     router.push('/my');
   }
@@ -123,7 +127,7 @@ export const Header = (props: Props) => {
             <S.Box sx={{ display: { xs: 'none', sm: 'block' } }}>
               {/*notification*/}
                 <IconButton
-                  onClick={() => {}}
+                  onClick={handleNotice}
                 >
                   <Badge badgeContent={1} color="error">
                     <NotificationsIcon />
@@ -138,14 +142,13 @@ export const Header = (props: Props) => {
                 </IconButton>
               </Link>
               {/*language*/}
-              <IconButton
-                onClick={() => {}}
-              >
-                <LanguageIcon />
-              </IconButton>
+              {/*<IconButton*/}
+              {/*  onClick={() => {}}*/}
+              {/*>*/}
+              {/*  <LanguageIcon />*/}
+              {/*</IconButton>*/}
               {/*login*/}
               {isLogin ?
-
                 <IconButton
                   onClick={handleMyPage}
                 >
