@@ -1,39 +1,28 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## ![스크린샷 2025-01-24 162630](https://github.com/user-attachments/assets/08e20aca-bb19-4c53-9181-b424e91e2c6a)
 
-## Getting Started
+<br/>
 
-First, run the development server:
+<div align="center">
+<b>Prove your skills with daily commits. <br/>
+The more commits you make on GitHub, the more splendid your tier becomes.</b>
+</div>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<br/>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<div align="center">
+<b>The more active you are in contributing to GitHub, the higher your tier will rise.<br/>
+Contributions include commits, creating issues, pull requests, code reviews, and writing wikis.</b>
+</div>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+<div align="center">
+<img width="479" alt="Group 39 (1)" src="https://github.com/user-attachments/assets/f2a34d1f-5722-4520-8a34-79cf98a07e80" />
+</div>
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## How To Use
+1. Check your tier on the My Page after log in.
+2. Set the type and background color, then download the image.
+3. Attach the downloaded image to your GitHub README.
+4. Verify the updated display.
 
 ## Tier Table
 
