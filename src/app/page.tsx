@@ -76,7 +76,7 @@ export default function MainPage() {
           <li>4. Verify the updated display.</li>
         </ul>
         <Image src={HowToUse} alt="how-to-use-img" />
-        <Link href="https://github.com/git-tiers/gittiers" rel="noopener noreferrer" target="_blank">
+        <Link href="https://github.com/git-tiers/gittiers?tab=readme-ov-file#how-to-use" rel="noopener noreferrer" target="_blank">
           <Button startIcon={<InfoIcon />} variant="contained">How To Use</Button>
         </Link>
       </S.HowToCont>
@@ -169,12 +169,13 @@ const S = {
   `,
   HowToCont: styled.div`
     background-color: ${Color.Primary3};
-    padding: 100px 0;
+    padding: 150px 0;
     h3{
       font-size: 50px;
       margin-bottom: 50px;
     }
     ul{
+      margin-bottom: 50px;
       li{
         font-size: 20px;
         margin-bottom: 20px;
@@ -188,7 +189,7 @@ const S = {
     }
     button{
       background-color: ${Color.Primary};
-      margin-top: 50px;
+      margin-top: 60px;
       width: 260px;
       padding: 10px 0;
       font-size: 18px;

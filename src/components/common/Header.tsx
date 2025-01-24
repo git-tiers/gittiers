@@ -48,6 +48,10 @@ export const Header = (props: Props) => {
     await signIn('github', {callbackUrl: '/my'});
   }
 
+  const handleNotice = () => {
+    router.push('/notice');
+  }
+
   const handleMyPage = () => {
     router.push('/my');
   }
@@ -123,7 +127,7 @@ export const Header = (props: Props) => {
             <S.Box sx={{ display: { xs: 'none', sm: 'block' } }}>
               {/*notification*/}
                 <IconButton
-                  onClick={() => {}}
+                  onClick={handleNotice}
                 >
                   <Badge badgeContent={1} color="error">
                     <NotificationsIcon />
@@ -131,21 +135,20 @@ export const Header = (props: Props) => {
                 </IconButton>
 
               {/*github*/}
-              <Link href="https://github.com/git-tiers/gittiers" rel="noopener noreferrer" target="_blank">
+              <Link href="https://github.com/git-tiers/gittiers?tab=readme-ov-file#git-tiers" rel="noopener noreferrer" target="_blank">
                 <IconButton
                 >
                   <GitHubIcon />
                 </IconButton>
               </Link>
               {/*language*/}
-              <IconButton
-                onClick={() => {}}
-              >
-                <LanguageIcon />
-              </IconButton>
+              {/*<IconButton*/}
+              {/*  onClick={() => {}}*/}
+              {/*>*/}
+              {/*  <LanguageIcon />*/}
+              {/*</IconButton>*/}
               {/*login*/}
               {isLogin ?
-
                 <IconButton
                   onClick={handleMyPage}
                 >

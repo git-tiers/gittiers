@@ -1,6 +1,5 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
 import Avatar from '@mui/material/Avatar';
 import styled from '@emotion/styled';
 
@@ -9,7 +8,7 @@ import { Title } from '@/components/common/Title';
 import { Profile } from '@/components/pages/my/Profile';
 import { MakeTier } from '@/components/pages/my/MakeTier';
 
-export default function myPage() {
+export default function MyPage() {
 
   return(
     <S.Wrapper>
