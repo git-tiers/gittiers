@@ -76,7 +76,7 @@ export default function MainPage() {
           <li>4. Verify the updated display.</li>
         </ul>
         <Image src={HowToUse} alt="how-to-use-img" />
-        <Link href="https://github.com/git-tiers/gittiers" rel="noopener noreferrer" target="_blank">
+        <Link href="https://github.com/git-tiers/gittiers?tab=readme-ov-file#how-to-use" rel="noopener noreferrer" target="_blank">
           <Button startIcon={<InfoIcon />} variant="contained">How To Use</Button>
         </Link>
       </S.HowToCont>

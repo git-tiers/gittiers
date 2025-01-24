@@ -131,7 +131,7 @@ export const Header = (props: Props) => {
                 </IconButton>
 
               {/*github*/}
-              <Link href="https://github.com/git-tiers/gittiers" rel="noopener noreferrer" target="_blank">
+              <Link href="https://github.com/git-tiers/gittiers?tab=readme-ov-file#git-tiers" rel="noopener noreferrer" target="_blank">
                 <IconButton
                 >
                   <GitHubIcon />
