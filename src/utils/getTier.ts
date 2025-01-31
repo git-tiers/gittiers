@@ -8,7 +8,7 @@ export const getTierImage = (contributions: number): string => {
   if (contributions >= 400) return '/tiers/3_silver.png';
   if (contributions >= 200) return '/tiers/2_bronze.png';
 
-  return '/assets/images/tiers/1_iron.png';
+  return '/tiers/1_iron.png';
 };
 
 export const getTierText = (contributions: number): string => {

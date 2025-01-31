@@ -113,6 +113,10 @@ const S = {
       padding: 10px 0;
       font-size: 18px;
     }
+    img{
+      object-fit: contain;
+      width: 100%;
+    }
   `,
   MainCont: styled.div`
     background-color: ${Color.Primary2};
