@@ -1,5 +1,9 @@
 'use client';
 
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 import Avatar from '@mui/material/Avatar';
 import styled from '@emotion/styled';
 
@@ -9,6 +13,16 @@ import { Profile } from '@/components/pages/my/Profile';
 import { MakeTier } from '@/components/pages/my/MakeTier';
 
 export default function MyPage() {
+  const { status } = useSession();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      toast.error("This is the wrong approach.");
+      router.push("/");
+    }
+  }, [status]);
 
   return(
     <S.Wrapper>
