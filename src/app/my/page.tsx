@@ -3,7 +3,6 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import toast from 'react-hot-toast';
 import Avatar from '@mui/material/Avatar';
 import styled from '@emotion/styled';
 
@@ -19,7 +18,6 @@ export default function MyPage() {
 
   useEffect(() => {
     if (status === "unauthenticated") {
-      toast.error("This is the wrong approach.");
       router.push("/");
     }
   }, [status]);

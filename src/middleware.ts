@@ -7,7 +7,6 @@ export async function middleware(request: NextRequest) {
       req: request,
       secret: process.env.NEXTAUTH_SECRET,
     });
-    console.log("Decoded Token:", decodedToken);
     if (!decodedToken) {
       const response = NextResponse.redirect(new URL("/", request.url));
       response.headers.set(
