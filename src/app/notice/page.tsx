@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import styled from '@emotion/styled';
 import Chip from '@mui/material/Chip';
 
