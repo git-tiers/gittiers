@@ -2,8 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
-export const GET = async (req: NextRequest, { params }: { params: { username: string } }) => {
-  const { username } = params;
+export const GET = async (req: NextRequest) => {
+  const pathSegments = req.nextUrl.pathname.split('/');
+  const username = pathSegments[pathSegments.length - 1];
 
   if (!username) {
     return new NextResponse("Invalid username", { status: 400 });
