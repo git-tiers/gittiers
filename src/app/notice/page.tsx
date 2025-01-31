@@ -8,6 +8,7 @@ import { Color } from '@/styles/color';
 import noticeData from "../../data/notice.json";
 
 type TNotice = {
+  id: number;
   title: string;
   content: string;
   isNew: boolean;
@@ -21,9 +22,9 @@ export default function NoticePage() {
       <Title title="Notice" />
       <S.NoticeWrap>
         {noticeData?.map((notice: TNotice) => (
-          <li>
+          <li key={notice.id}>
             <div>
-              <div><span>{notice.title}</span> {notice.isNew && <Chip label="N" color="error" />}</div>
+              <div>{notice.isNew && <i>New</i>} <span>{notice.title}</span> </div>
               <small>{notice.date}</small>
             </div>
             <p>{notice.content}</p>
@@ -36,8 +37,8 @@ export default function NoticePage() {
 
 const S = {
   Wrapper: styled.div`
-      width: 40%;
-      margin: 0 auto;
+    width: 60%;
+    margin: 0 auto;
   `,
   NoticeWrap: styled.ul`
     margin: 60px auto 0;
@@ -48,6 +49,11 @@ const S = {
       padding: 30px;
       position: relative;
       margin-bottom: 20px;
+      i{
+        color: ${Color.Red100};
+        font-weight: 600;
+        font-size: 12px;
+      }
       &:last-child{
         margin: 0;
       }
@@ -60,14 +66,15 @@ const S = {
           justify-content: flex-start;
           align-items: center;
           > span{
-            font-size: 20px;   
-            margin-right: 10px;
+            font-size: 16px;   
+            margin-left: 6px;
             font-weight: 600;
           }
         }
       }
       > p{
         margin-top: 20px;
+        font-size: 14px;
         background-color: ${Color.Bg100};
         border: 1px solid ${Color.Gray200};
         padding: 30px;

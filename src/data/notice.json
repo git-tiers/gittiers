@@ -1,11 +1,13 @@
 [
   {
+    "id": 1,
     "title": "Service Launch",
     "content": "Git TIERS service has been launched.\nPlease use it a lot.\nPlease refer to GitHub for more details.\nIf you have any inconveniences or improvements, please email us.",
     "date": "2025-01-24",
     "isNew": true
   },
   {
+    "id": 0,
     "title": "Service development in progress",
     "content": "Development of the Git Tier service is in progress.\nWe ask for your interest.",
     "date": "2025-01-06",

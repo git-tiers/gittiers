@@ -12,7 +12,6 @@ import FormLabel from '@mui/material/FormLabel';
 import Button from '@mui/material/Button';
 import DownloadIcon from '@mui/icons-material/Download';
 import ArticleIcon from '@mui/icons-material/Article';
-import CodeIcon from '@mui/icons-material/Code';
 
 import { Color } from '@/styles/color';
 import { getContributeCount } from '@/utils/github';
@@ -75,52 +74,6 @@ export const MakeTier = () => {
     link.click();
   };
 
-  const handleUpload = async () => {
-    const element = document.getElementById("tierCard");
-    if (!element) return;
-
-    const canvas = await html2canvas(element, {
-      scrollX: 0,
-      scrollY: -window.scrollY,
-      windowWidth: document.documentElement.offsetWidth,
-      windowHeight: document.documentElement.offsetHeight,
-    });
-
-    const dataURL = canvas.toDataURL("image/png");
-
-    const res = await fetch('/api/tiers/upload', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ image: dataURL, username: session?.loginId }),
-    });
-    if(res?.status === 200){
-      const htmlContent = isCard === "card" ? `<a href="https://github.com/git-tiers/gittiers?tab=readme-ov-file#git-tiers">
-          <img 
-            width=398
-            height=186
-            src="https://git-tiers.devwoodie.com/api/tiers/${session?.loginId}" 
-          />
-        </a>
-      `:`<a href="https://github.com/git-tiers/gittiers?tab=readme-ov-file#git-tiers">
-          <img 
-            width=200
-            height=200
-            src="https://git-tiers.devwoodie.com/api/tiers/${session?.loginId}" 
-          />
-        </a>
-      `
-      navigator.clipboard.writeText(htmlContent).then(() => {
-        toast.success("HTML copied to clipboard!");
-      }).catch((err) => {
-        toast.error("Failed to copy HTML: " + err);
-      });
-    }else{
-      toast.error("An error occurred. Please try again.");
-    }
-  }
-
   useEffect(() => {
     handleGithubData();
   }, [session?.accessToken]);
@@ -142,7 +95,6 @@ export const MakeTier = () => {
           <div
             id="tierCard"
             style={{backgroundColor: isMode === "light" ? "#ffffff" : "#0d1117"}}
-            className={isCard === "card" ? "card" : "simple"}
           >
             <S.ImgWrap form={isCard} text={isText} mode={isMode}>
               <div>
@@ -206,7 +158,6 @@ export const MakeTier = () => {
         </S.Controller>
       </S.TierWrap>
       <S.ButtonWrap>
-        <Button startIcon={<CodeIcon />} variant="contained" onClick={handleUpload}>Copy Link</Button>
         <Button startIcon={<DownloadIcon />} variant="contained" onClick={handleDownload}>Image Download</Button>
         <Link href="https://github.com/git-tiers/gittiers?tab=readme-ov-file#tier-table" rel="noopener noreferrer" target="_blank">
           <Button startIcon={<ArticleIcon />} variant="outlined">Tiers Table</Button>
@@ -234,14 +185,6 @@ const S = {
     flex-direction: column;
     #tierCard{
       padding: 5px;
-      &.card{
-        width: 398px;
-        height: 186px;
-      }
-      &.simple{
-        width: 200px;
-        height: 200px;
-      }
     }
   `,
   ImgWrap: styled.div<{ form?: string, text?: string, mode?: string }>`
