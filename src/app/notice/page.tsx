@@ -1,7 +1,6 @@
 'use client';
 
 import styled from '@emotion/styled';
-import Chip from '@mui/material/Chip';
 
 import { Title } from '@/components/common/Title';
 import { Color } from '@/styles/color';
