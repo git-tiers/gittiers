@@ -16,7 +16,6 @@ import ChallengerIcon from '@/assets/images/tiers/9_challenger.png';
 import SampleImg1 from '@/assets/images/sample-img1.png';
 import SampleImg2 from '@/assets/images/sample-img2.png';
 import TierFlow from '@/assets/images/tier-flow.png';
-import HowToUse from '@/assets/images/how-to-use-img1.png';
 
 export default function MainPage() {
   const { data: session } = useSession();
@@ -75,7 +74,6 @@ export default function MainPage() {
           <li>3. Attach the downloaded image to your GitHub README.</li>
           <li>4. Verify the updated display.</li>
         </ul>
-        <Image src={HowToUse} alt="how-to-use-img" />
         <Link href="https://github.com/git-tiers/gittiers?tab=readme-ov-file#how-to-use" rel="noopener noreferrer" target="_blank">
           <Button startIcon={<InfoIcon />} variant="contained">How To Use</Button>
         </Link>
@@ -188,8 +186,6 @@ const S = {
     img{
       display: block;
       margin: 0 auto;
-      border: 2px solid ${Color.Black};
-      border-radius: 12px;
     }
     button{
       background-color: ${Color.Primary};

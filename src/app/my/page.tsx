@@ -19,7 +19,6 @@ export default function MyPage() {
 
   useEffect(() => {
     if (status === "unauthenticated") {
-      toast.error("This is the wrong approach.");
       router.push("/");
     }
   }, [status]);
