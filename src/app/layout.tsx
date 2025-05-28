@@ -6,6 +6,7 @@ import '@/styles/globals.css';
 import '@/styles/reset.css';
 import { Header } from '@/components/common/Header';
 import { Container } from '@/components/common/Container';
+import { GoogleAdSense } from '@/components/common/GoogleAdSense';
 
 export const metadata: Metadata = {
   title: "Git TIERS",
@@ -27,6 +28,7 @@ export default function RootLayout({
           </Container>
         </Providers>
       </body>
+    <GoogleAdSense />
     </html>
   );
 }
