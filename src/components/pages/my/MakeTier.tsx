@@ -10,13 +10,16 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import Button from '@mui/material/Button';
-import DownloadIcon from '@mui/icons-material/Download';
+import LinkIcon from '@mui/icons-material/Link';
+import SaveIcon from '@mui/icons-material/Save';
 import ArticleIcon from '@mui/icons-material/Article';
+import { doc, setDoc } from 'firebase/firestore';
 
 import { Color } from '@/styles/color';
 import { getContributeCount } from '@/utils/github';
 import { getTierImage, getTierText } from '@/utils/getTier';
 import { LoadingSpinner } from '@/components/common/LoadingSpinner';
+import { firestore } from '../../../../firebase/firebase';
 
 export const MakeTier = () => {
   const { data: session } = useSession();
@@ -27,6 +30,8 @@ export const MakeTier = () => {
   const [isText, setIsText] = useState<string>("exist");
   const [isMode, setIsMode] = useState<string>("light");
   const [loading, setLoading] = useState<boolean>(true);
+  const [saveLoading, setSaveLoading] = useState<boolean>(false);
+  const [userImageUrl, setUserImageUrl] = useState<string>('');
 
   const handleGithubData = async () => {
     if(session?.accessToken && session?.loginId){
@@ -58,20 +63,64 @@ export const MakeTier = () => {
     setIsMode(event.target.value);
   };
 
-  const handleDownload = async () => {
-    const element = document.getElementById("tierCard");
-    if (!element) return;
-    const canvas = await html2canvas(element, {
-      scrollX: 0,
-      scrollY: -window.scrollY,
-      windowWidth: document.documentElement.offsetWidth,
-      windowHeight: document.documentElement.offsetHeight,
-    });
-    const dataURL = canvas.toDataURL("image/png");
-    const link = document.createElement("a");
-    link.href = dataURL;
-    link.download = `${session?.loginId}-tiers.png`;
-    link.click();
+  const handleSaveImage = async () => {
+    if (!session?.loginId) {
+      toast.error("Please log in first.");
+      return;
+    }
+
+    setSaveLoading(true);
+    try {
+      const element = document.getElementById("tierCard");
+      if (!element) return;
+
+      const canvas = await html2canvas(element, {
+        scrollX: 0,
+        scrollY: -window.scrollY,
+        windowWidth: document.documentElement.offsetWidth,
+        windowHeight: document.documentElement.offsetHeight,
+        scale: 1, // 스케일을 1로 제한해서 크기 줄이기
+        useCORS: true,
+      });
+
+      const base64Image = canvas.toDataURL('image/jpeg', 0.8); // 80% 품질로 압축
+
+      const imageSizeInBytes = (base64Image.length * 3) / 4;
+      if (imageSizeInBytes > 900000) {
+        toast.error("Image is too large. Please try with simpler settings.");
+        return;
+      }
+
+      const userRef = doc(firestore, 'users', session.loginId);
+      await setDoc(userRef, {
+        tierImageBase64: base64Image,
+        lastUpdated: new Date().toISOString(),
+        imageSettings: {
+          isCard,
+          isText,
+          isMode,
+          contributeCount
+        }
+      }, { merge: true });
+
+      const baseUrl = window.location.origin;
+      setUserImageUrl(`${baseUrl}/api/tier/${session.loginId}`);
+
+      toast.success("Image saved successfully!");
+
+    } catch (error) {
+      console.error('Error saving image:', error);
+      toast.error("Failed to save image. Please try again.");
+    } finally {
+      setSaveLoading(false);
+    }
+  };
+
+  const copyToClipboard = () => {
+    if (userImageUrl) {
+      navigator.clipboard.writeText(`<img src="${userImageUrl}" alt="Git-TIERS" />`);
+      toast.success("Image tag copied to clipboard!");
+    }
   };
 
   useEffect(() => {
@@ -86,6 +135,13 @@ export const MakeTier = () => {
       setTierText(text);
     }
   }, [contributeCount]);
+
+  useEffect(() => {
+    if (session?.loginId) {
+      const baseUrl = window.location.origin;
+      setUserImageUrl(`${baseUrl}/api/tier/${session.loginId}`);
+    }
+  }, [session?.loginId]);
 
   return(
     <S.Wrapper>
@@ -158,12 +214,28 @@ export const MakeTier = () => {
         </S.Controller>
       </S.TierWrap>
       <S.ButtonWrap>
-        <Button startIcon={<DownloadIcon />} variant="contained" onClick={handleDownload}>Image Download</Button>
+        <Button
+          startIcon={<SaveIcon />}
+          variant="contained"
+          onClick={handleSaveImage}
+          disabled={saveLoading}
+          color="primary"
+        >
+          {saveLoading ? "Saving..." : "Save Image"}
+        </Button>
         <Link href="https://github.com/git-tiers/gittiers?tab=readme-ov-file#tier-table" rel="noopener noreferrer" target="_blank">
           <Button startIcon={<ArticleIcon />} variant="outlined">Tiers Table</Button>
         </Link>
       </S.ButtonWrap>
-
+      {userImageUrl && (
+        <Button
+          startIcon={<LinkIcon />}
+          size="small"
+          onClick={copyToClipboard}
+        >
+          Copy Tag
+        </Button>
+      )}
       <LoadingSpinner loading={loading} />
     </S.Wrapper>
   )
@@ -269,8 +341,6 @@ const S = {
     display: flex;
     align-items: center;
     justify-content: center;
-    > button{
-      margin: 0 5px;
-    }
-  `
+    gap: 12px;
+  `,
 }
