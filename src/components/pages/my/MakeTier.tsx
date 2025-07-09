@@ -2,7 +2,7 @@ import { useSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
-import html2canvas from "html2canvas";
+import html2canvas from 'html2canvas';
 import styled from '@emotion/styled';
 import Button from '@mui/material/Button';
 import LinkIcon from '@mui/icons-material/Link';
@@ -22,42 +22,42 @@ export const MakeTier = () => {
   const [contributeCount, setContributeCount] = useState<number>(0);
   const [tierImage, setTierImage] = useState<string>('');
   const [tierText, setTierText] = useState<string>('');
-  const [isCard, setIsCard] = useState<string>("card");
-  const [isText, setIsText] = useState<string>("exist");
-  const [isMode, setIsMode] = useState<string>("light");
+  const [isCard, setIsCard] = useState<string>('card');
+  const [isText, setIsText] = useState<string>('exist');
+  const [isMode, setIsMode] = useState<string>('light');
   const [loading, setLoading] = useState<boolean>(true);
   const [saveLoading, setSaveLoading] = useState<boolean>(false);
   const [userImageUrl, setUserImageUrl] = useState<string>('');
 
   const handleGithubData = async () => {
-    if(session?.accessToken && session?.loginId){
+    if (session?.accessToken && session?.loginId) {
       setLoading(true);
       const res = await getContributeCount({
         accessToken: session?.accessToken,
-        loginId: session?.loginId
+        loginId: session?.loginId,
       });
       setTimeout(() => {
         setLoading(false);
       }, 500);
-      if(res === "ERROR"){
+      if (res === 'ERROR') {
         setTimeout(() => {
           setLoading(false);
         }, 500);
-        return toast.error("An error occurred. Please try again later.");
+        return toast.error('An error occurred. Please try again later.');
       }
       setContributeCount(res);
     }
-  }
+  };
 
   const handleSaveImage = async () => {
     if (!session?.loginId) {
-      toast.error("Please log in first.");
+      toast.error('Please log in first.');
       return;
     }
 
     setSaveLoading(true);
     try {
-      const element = document.getElementById("tierCard");
+      const element = document.getElementById('tierCard');
       if (!element) return;
 
       const canvas = await html2canvas(element, {
@@ -73,30 +73,33 @@ export const MakeTier = () => {
 
       const imageSizeInBytes = (base64Image.length * 3) / 4;
       if (imageSizeInBytes > 900000) {
-        toast.error("Image is too large. Please try with simpler settings.");
+        toast.error('Image is too large. Please try with simpler settings.');
         return;
       }
 
       const userRef = doc(firestore, 'users', session.loginId);
-      await setDoc(userRef, {
-        tierImageBase64: base64Image,
-        lastUpdated: new Date().toISOString(),
-        imageSettings: {
-          isCard,
-          isText,
-          isMode,
-          contributeCount
-        }
-      }, { merge: true });
+      await setDoc(
+        userRef,
+        {
+          tierImageBase64: base64Image,
+          lastUpdated: new Date().toISOString(),
+          imageSettings: {
+            isCard,
+            isText,
+            isMode,
+            contributeCount,
+          },
+        },
+        { merge: true }
+      );
 
       const baseUrl = window.location.origin;
       setUserImageUrl(`${baseUrl}/api/tier/${session.loginId}`);
 
-      toast.success("Image saved successfully!");
-
+      toast.success('Image saved successfully!');
     } catch (error) {
       console.error('Error saving image:', error);
-      toast.error("Failed to save image. Please try again.");
+      toast.error('Failed to save image. Please try again.');
     } finally {
       setSaveLoading(false);
     }
@@ -104,8 +107,10 @@ export const MakeTier = () => {
 
   const copyToClipboard = () => {
     if (userImageUrl) {
-      navigator.clipboard.writeText(`<img src="${userImageUrl}" alt="Git-TIERS" />`);
-      toast.success("Image tag copied to clipboard!");
+      navigator.clipboard.writeText(
+        `<a href="https://github.com/git-tiers/gittiers"><img src="${userImageUrl}" alt="Git-TIERS" /></a>`
+      );
+      toast.success('Image tag copied to clipboard!');
     }
   };
 
@@ -114,7 +119,7 @@ export const MakeTier = () => {
   }, [session?.accessToken]);
 
   useEffect(() => {
-    if(contributeCount){
+    if (contributeCount) {
       const imgUrl = getTierImage(contributeCount);
       const text = getTierText(contributeCount);
       setTierImage(imgUrl);
@@ -129,9 +134,11 @@ export const MakeTier = () => {
     }
   }, [session?.loginId]);
 
-  return(
+  return (
     <S.Wrapper>
-      <p>Total Contributions: <b>{contributeCount || 0}</b></p>
+      <p>
+        Total Contributions: <b>{contributeCount || 0}</b>
+      </p>
       <S.TierWrap>
         <TierImage
           isMode={isMode}
@@ -154,8 +161,7 @@ export const MakeTier = () => {
         <Button
           startIcon={<LinkIcon />}
           size="medium"
-          onClick={copyToClipboard}
-        >
+          onClick={copyToClipboard}>
           Copy Tag
         </Button>
       )}
@@ -165,24 +171,29 @@ export const MakeTier = () => {
           variant="contained"
           onClick={handleSaveImage}
           disabled={saveLoading}
-          color="primary"
-        >
-          {saveLoading ? "Saving..." : "Save Image"}
+          color="primary">
+          {saveLoading ? 'Saving...' : 'Save Image'}
         </Button>
-        <Link href="https://github.com/git-tiers/gittiers?tab=readme-ov-file#tier-table" rel="noopener noreferrer" target="_blank">
-          <Button startIcon={<ArticleIcon />} variant="outlined">Tiers Table</Button>
+        <Link
+          href="https://github.com/git-tiers/gittiers?tab=readme-ov-file#tier-table"
+          rel="noopener noreferrer"
+          target="_blank">
+          <Button startIcon={<ArticleIcon />} variant="outlined">
+            Tiers Table
+          </Button>
         </Link>
       </S.ButtonWrap>
 
       <LoadingSpinner loading={loading} />
     </S.Wrapper>
-  )
-}
+  );
+};
 
 const S = {
   Wrapper: styled.div`
     text-align: center;
-    p{
+
+    p {
       font-size: 20px;
     }
   `,
@@ -193,7 +204,8 @@ const S = {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    #tierCard{
+
+    #tierCard {
       padding: 5px;
     }
   `,
@@ -204,4 +216,4 @@ const S = {
     justify-content: center;
     gap: 12px;
   `,
-}
+};
