@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import styled from '@emotion/styled';
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 
 import { Color } from '@/styles/color';
 import { Title } from '@/components/common/Title';
@@ -17,20 +18,23 @@ export default function MyPage() {
   const router = useRouter();
 
   useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/");
+    if (status === 'unauthenticated') {
+      router.push('/');
     }
   }, [status]);
 
-  return(
+  return (
     <S.Wrapper>
-      <Title title="My Page" />
+      <Title
+        title="My Page"
+        icon={<PersonRoundedIcon style={{ fontSize: '30px' }} />}
+      />
       <S.FlexBox>
         <Profile />
         <MakeTier />
       </S.FlexBox>
     </S.Wrapper>
-  )
+  );
 }
 
 const S = {
@@ -42,10 +46,16 @@ const S = {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-top: 50px;
-    > div{
-      &:first-of-type{width: auto;}
-      &:last-child{width: 70%;}
+    margin-top: 10px;
+
+    > div {
+      &:first-of-type {
+        width: auto;
+      }
+
+      &:last-child {
+        width: 70%;
+      }
     }
   `,
   ProfileImg: styled(Avatar)`
@@ -54,9 +64,10 @@ const S = {
     border-radius: 50%;
     overflow: hidden;
     border: 3px solid ${Color.Primary};
-    img{
+
+    img {
       width: 100%;
       height: 100%;
     }
-  `
-}
+  `,
+};

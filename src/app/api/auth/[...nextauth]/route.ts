@@ -1,5 +1,7 @@
 import GitHubProvider from "next-auth/providers/github";
 import NextAuth from 'next-auth';
+import { firestore } from '../../../../../firebase/firebase';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 const handler = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
@@ -31,6 +33,28 @@ const handler = NextAuth({
             token.company = userData?.company || null;
             token.location = userData?.location || null;
             token.bio = userData?.bio || null;
+
+            if(userData?.login){
+              try{
+                const userRef = doc(firestore, 'users', userData.login);
+                const userDoc = await getDoc(userRef);
+                if(!userDoc.exists()){
+                  await setDoc(userRef, {
+                    login_id: userData.login,
+                    access_token: account.access_token,
+                    first_login: new Date().toISOString(),
+                    last_login: new Date().toISOString(),
+                  })
+                }else{
+                  await setDoc(userRef, {
+                    last_login: new Date().toISOString(),
+                  }, { merge: true });
+                }
+
+              }catch(firebaseError){
+                console.error('Firebase 처리 중 오류:', firebaseError);
+              }
+            }
           } catch (error) {
             console.error('Failed to parse user data:', error);
           }

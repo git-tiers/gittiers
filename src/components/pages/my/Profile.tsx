@@ -12,12 +12,11 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { Color } from '@/styles/color';
 
 export const Profile = () => {
-
   const { data: session } = useSession();
 
   const handleGitLogout = async () => {
     await signOut();
-  }
+  };
 
   return (
     <S.Wrapper>
@@ -26,37 +25,67 @@ export const Profile = () => {
       <h5>{session?.loginId || ''}</h5>
       <span>{session?.user.bio || '-'}</span>
       <S.SmallBox>
-        <span><ApartmentIcon /> {session?.user.company || '-'}</span>
-        <span><AlternateEmailIcon /> {session?.user.email || '-'}</span>
-        <span><LocationOnIcon /> {session?.user.location || '-'}</span>
+        <span>
+          <ApartmentIcon /> {session?.user.company || '-'}
+        </span>
+        <span>
+          <AlternateEmailIcon /> {session?.user.email || '-'}
+        </span>
+        <span>
+          <LocationOnIcon /> {session?.user.location || '-'}
+        </span>
       </S.SmallBox>
       <S.ButtonWrap>
-        <Link href={`https://github.com/${session?.loginId}`} target="_blank" rel="noopener noreferrer">
-          <Button startIcon={<GitHubIcon />} variant="contained" color="primary" >My GitHub</Button>
+        <Link
+          href={`https://github.com/${session?.loginId}`}
+          target="_blank"
+          rel="noopener noreferrer">
+          <Button
+            sx={{
+              background: Color.Primary,
+            }}
+            startIcon={<GitHubIcon />}
+            variant="contained"
+            color="primary">
+            My GitHub
+          </Button>
         </Link>
-        <Button startIcon={<LogoutIcon />}  variant="outlined" onClick={handleGitLogout}>Logout</Button>
+        <Button
+          sx={{
+            color: Color.Primary,
+            borderColor: Color.Primary,
+          }}
+          startIcon={<LogoutIcon />}
+          variant="outlined"
+          onClick={handleGitLogout}>
+          Logout
+        </Button>
       </S.ButtonWrap>
     </S.Wrapper>
-  )
-}
+  );
+};
 
 const S = {
   Wrapper: styled.div`
     padding: 30px 50px 30px 0;
     border-right: 1px solid ${Color.Gray200};
-    p{
+
+    p {
       font-size: 24px;
       margin-top: 20px;
       font-weight: 600;
     }
-    h5{
+
+    h5 {
       font-size: 20px;
-      margin-top: 10px;
+      margin-top: 6px;
       font-weight: 400;
+      color: ${Color.Black200};
     }
-    > span{
-      font-size: 16px;
-      margin-top: 30px;
+
+    > span {
+      font-size: 14px;
+      margin-top: 20px;
       display: block;
     }
   `,
@@ -66,20 +95,23 @@ const S = {
     border-radius: 50%;
     overflow: hidden;
     border: 3px solid ${Color.Primary};
-    img{
+
+    img {
       width: 100%;
       height: 100%;
     }
   `,
   SmallBox: styled.div`
-    margin-top: 30px;
-    span{
+    margin-top: 20px;
+
+    span {
       font-size: 12px;
       margin-top: 8px;
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      svg{
+
+      svg {
         font-size: 16px;
         margin-right: 8px;
       }
@@ -89,11 +121,13 @@ const S = {
     margin-top: 20px;
     display: flex;
     flex-direction: column;
-    button{
+
+    button {
       width: 100%;
     }
-    > button{
+
+    > button {
       margin-top: 10px;
     }
-  `
-}
+  `,
+};
