@@ -17,12 +17,12 @@ export default function MyPage() {
   const router = useRouter();
 
   useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/");
+    if (status === 'unauthenticated') {
+      router.push('/');
     }
   }, [status]);
 
-  return(
+  return (
     <S.Wrapper>
       <Title title="My Page" />
       <S.FlexBox>
@@ -30,7 +30,7 @@ export default function MyPage() {
         <MakeTier />
       </S.FlexBox>
     </S.Wrapper>
-  )
+  );
 }
 
 const S = {
@@ -42,10 +42,16 @@ const S = {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-top: 50px;
-    > div{
-      &:first-of-type{width: auto;}
-      &:last-child{width: 70%;}
+    margin-top: 10px;
+
+    > div {
+      &:first-of-type {
+        width: auto;
+      }
+
+      &:last-child {
+        width: 70%;
+      }
     }
   `,
   ProfileImg: styled(Avatar)`
@@ -54,9 +60,10 @@ const S = {
     border-radius: 50%;
     overflow: hidden;
     border: 3px solid ${Color.Primary};
-    img{
+
+    img {
       width: 100%;
       height: 100%;
     }
-  `
-}
+  `,
+};
