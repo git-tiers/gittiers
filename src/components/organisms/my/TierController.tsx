@@ -97,6 +97,9 @@ export const TierController = ({
           }}>
           <FormControlLabel value="light" control={<Radio />} label="LIGHT" />
           <FormControlLabel value="dark" control={<Radio />} label="DARK" />
+          <FormControlLabel value="blue" control={<Radio />} label="BLUE" />
+          <FormControlLabel value="green" control={<Radio />} label="GREEN" />
+          <FormControlLabel value="red" control={<Radio />} label="RED" />
         </RadioGroup>
       </FormControl>
     </S.Controller>

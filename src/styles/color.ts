@@ -25,4 +25,10 @@ export const Color = {
 
   AlertSuccess: '#e6fdec',
   AlertError: '#fbecec',
+
+  TierBgLight: '#FFFFFF',
+  TierBgDark: '#000000',
+  TierBgGreen: '#2f774c',
+  TierBgRed: '#9f2905',
+  TierBgBlue: '#0e2c8f',
 };

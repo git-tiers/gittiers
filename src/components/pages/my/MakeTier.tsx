@@ -1,4 +1,4 @@
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
@@ -45,7 +45,12 @@ export const MakeTier = () => {
         setTimeout(() => {
           setLoading(false);
         }, 500);
-        return toast.error('An error occurred. Please try again later.');
+        toast.error('An error occurred. Please try again later.');
+
+        await signOut({
+          callbackUrl: '/',
+        });
+        return;
       }
       setContributeCount(res);
     }
