@@ -3,21 +3,21 @@
     "id": 2,
     "title": "Function update information",
     "content": "Instead of downloading and attaching images, \na feature has been added that allows you to simply copy the code and paste it into README. \nThis change is simpler and more convenient, \nso we hope you enjoy it.",
-    "date": "2025-07-09",
+    "date": "2025.07.09",
     "isNew": true
   },
   {
     "id": 1,
     "title": "Service Launch",
     "content": "Git TIERS service has been launched.\nPlease use it a lot.\nPlease refer to GitHub for more details.\nIf you have any inconveniences or improvements, please email us.",
-    "date": "2025-01-24",
+    "date": "2025.01.24",
     "isNew": false
   },
   {
     "id": 0,
     "title": "Service development in progress",
     "content": "Development of the Git Tier service is in progress.\nWe ask for your interest.",
-    "date": "2025-01-06",
+    "date": "2025.01.06",
     "isNew": false
   }
 ]

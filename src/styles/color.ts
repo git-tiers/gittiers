@@ -20,8 +20,9 @@ export const Color = {
   Black100: '#333333',
   Black200: '#666666',
 
-  Bg100: '#F5F5F5',
+  Bg100: '#FFFFFF',
+  Bg200: '#F5F5F5',
 
   AlertSuccess: '#e6fdec',
   AlertError: '#fbecec',
-}
+};

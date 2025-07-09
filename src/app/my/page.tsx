@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import styled from '@emotion/styled';
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 
 import { Color } from '@/styles/color';
 import { Title } from '@/components/common/Title';
@@ -24,7 +25,10 @@ export default function MyPage() {
 
   return (
     <S.Wrapper>
-      <Title title="My Page" />
+      <Title
+        title="My Page"
+        icon={<PersonRoundedIcon style={{ fontSize: '36px' }} />}
+      />
       <S.FlexBox>
         <Profile />
         <MakeTier />

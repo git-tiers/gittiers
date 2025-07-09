@@ -41,6 +41,9 @@ export const Profile = () => {
           target="_blank"
           rel="noopener noreferrer">
           <Button
+            sx={{
+              background: Color.Primary,
+            }}
             startIcon={<GitHubIcon />}
             variant="contained"
             color="primary">
@@ -48,6 +51,10 @@ export const Profile = () => {
           </Button>
         </Link>
         <Button
+          sx={{
+            color: Color.Primary,
+            borderColor: Color.Primary,
+          }}
           startIcon={<LogoutIcon />}
           variant="outlined"
           onClick={handleGitLogout}>
@@ -71,13 +78,14 @@ const S = {
 
     h5 {
       font-size: 20px;
-      margin-top: 10px;
+      margin-top: 6px;
       font-weight: 400;
+      color: ${Color.Black200};
     }
 
     > span {
-      font-size: 16px;
-      margin-top: 30px;
+      font-size: 14px;
+      margin-top: 20px;
       display: block;
     }
   `,
@@ -94,7 +102,7 @@ const S = {
     }
   `,
   SmallBox: styled.div`
-    margin-top: 30px;
+    margin-top: 20px;
 
     span {
       font-size: 12px;

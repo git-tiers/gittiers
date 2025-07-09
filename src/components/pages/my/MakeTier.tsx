@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import LinkIcon from '@mui/icons-material/Link';
 import SaveIcon from '@mui/icons-material/Save';
 import ArticleIcon from '@mui/icons-material/Article';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 import { getContributeCount } from '@/utils/github';
 import { getTierImage, getTierText } from '@/utils/getTier';
@@ -16,6 +16,8 @@ import { LoadingSpinner } from '@/components/common/LoadingSpinner';
 import { firestore } from '../../../../firebase/firebase';
 import { TierImage } from '@/components/organisms/my/TierImage';
 import { TierController } from '@/components/organisms/my/TierController';
+import { UserData } from '@/types/api';
+import { Color } from '@/styles/color';
 
 export const MakeTier = () => {
   const { data: session } = useSession();
@@ -114,6 +116,19 @@ export const MakeTier = () => {
     }
   };
 
+  const handleController = async () => {
+    const userRef = doc(firestore, 'users', session?.loginId || '');
+    const userDoc = await getDoc(userRef);
+    const userData: UserData = userDoc.data() as UserData;
+    const controller = userData.imageSettings;
+
+    if (controller) {
+      setIsCard(controller?.isCard);
+      setIsText(controller?.isText);
+      setIsMode(controller?.isMode);
+    }
+  };
+
   useEffect(() => {
     handleGithubData();
   }, [session?.accessToken]);
@@ -129,6 +144,7 @@ export const MakeTier = () => {
 
   useEffect(() => {
     if (session?.loginId) {
+      handleController();
       const baseUrl = window.location.origin;
       setUserImageUrl(`${baseUrl}/api/tier/${session.loginId}`);
     }
@@ -157,16 +173,12 @@ export const MakeTier = () => {
           setIsMode={setIsMode}
         />
       </S.TierWrap>
-      {userImageUrl && (
-        <Button
-          startIcon={<LinkIcon />}
-          size="medium"
-          onClick={copyToClipboard}>
-          Copy Tag
-        </Button>
-      )}
+
       <S.ButtonWrap>
         <Button
+          sx={{
+            background: Color.Primary,
+          }}
           startIcon={<SaveIcon />}
           variant="contained"
           onClick={handleSaveImage}
@@ -174,15 +186,31 @@ export const MakeTier = () => {
           color="primary">
           {saveLoading ? 'Saving...' : 'Save Image'}
         </Button>
-        <Link
-          href="https://github.com/git-tiers/gittiers?tab=readme-ov-file#tier-table"
-          rel="noopener noreferrer"
-          target="_blank">
-          <Button startIcon={<ArticleIcon />} variant="outlined">
-            Tiers Table
-          </Button>
-        </Link>
+        <Button
+          sx={{
+            color: Color.Primary,
+            borderColor: Color.Primary,
+          }}
+          startIcon={<LinkIcon />}
+          variant="outlined"
+          size="medium"
+          onClick={copyToClipboard}>
+          Copy Tag
+        </Button>
       </S.ButtonWrap>
+      <Link
+        href="https://github.com/git-tiers/gittiers?tab=readme-ov-file#tier-table"
+        rel="noopener noreferrer"
+        target="_blank">
+        <Button
+          sx={{
+            color: Color.Primary,
+            borderColor: Color.Primary,
+          }}
+          startIcon={<ArticleIcon />}>
+          Tiers Table
+        </Button>
+      </Link>
 
       <LoadingSpinner loading={loading} />
     </S.Wrapper>
@@ -198,7 +226,7 @@ const S = {
     }
   `,
   TierWrap: styled.div`
-    margin: 30px auto 0;
+    margin: 0 auto;
     padding: 30px;
     display: flex;
     align-items: center;
@@ -215,5 +243,7 @@ const S = {
     align-items: center;
     justify-content: center;
     gap: 12px;
+    margin-top: 20px;
+    margin-bottom: 10px;
   `,
 };
