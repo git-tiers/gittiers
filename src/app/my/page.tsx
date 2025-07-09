@@ -27,7 +27,7 @@ export default function MyPage() {
     <S.Wrapper>
       <Title
         title="My Page"
-        icon={<PersonRoundedIcon style={{ fontSize: '36px' }} />}
+        icon={<PersonRoundedIcon style={{ fontSize: '30px' }} />}
       />
       <S.FlexBox>
         <Profile />

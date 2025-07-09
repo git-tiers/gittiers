@@ -223,6 +223,7 @@ const S = {
 
     p {
       font-size: 20px;
+      margin-top: 10px;
     }
   `,
   TierWrap: styled.div`

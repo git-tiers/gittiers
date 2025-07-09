@@ -109,7 +109,7 @@ const S = {
     text-align: left;
     display: flex;
     justify-content: space-between;
-    width: 60%;
+    width: 55%;
 
     > div {
       display: flex;

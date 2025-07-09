@@ -13,9 +13,10 @@ import InfoIcon from '@mui/icons-material/Info';
 
 import { Color } from '@/styles/color';
 import ChallengerIcon from '@/assets/images/tiers/9_challenger.png';
-import SampleImg1 from '@/assets/images/sample-img1.png';
-import SampleImg2 from '@/assets/images/sample-img2.png';
 import TierFlow from '@/assets/images/tier-flow.png';
+import { FlowCont } from '@/components/organisms/main/FlowCont';
+import { HowToCont } from '@/components/organisms/main/HowToCont';
+import { Footer } from '@/components/common/Footer';
 
 export default function MainPage() {
   const { data: session } = useSession();
@@ -55,72 +56,9 @@ export default function MainPage() {
           Login
         </Button>
       )}
-
-      <S.MainCont>
-        <h3>TIER Type</h3>
-        <div>
-          <h6>Simple Type</h6>
-          <p>
-            Simple Type is only show the <u>Tier Image</u> and <u>Tier Text.</u>
-          </p>
-          <Image src={SampleImg2} alt="sample-img2" />
-        </div>
-        <div>
-          <h6>Card Type</h6>
-          <p>
-            Card Type is shows <u>GitHub ID</u> and <u>Total Contributions.</u>
-          </p>
-          <Image src={SampleImg1} alt="sample-img1" />
-        </div>
-      </S.MainCont>
-
-      <S.FlowCont>
-        <h3>TIER Step</h3>
-        <div className="img-wrap">
-          <Image src={TierFlow} alt="flow-img" />
-        </div>
-        <p>
-          The more active you are in contributing to GitHub, the higher your
-          tier will rise.
-          <br />
-          Contributions include commits, creating issues, pull requests, code
-          reviews, and writing wikis.
-        </p>
-        <Link
-          href="https://github.com/git-tiers/gittiers?tab=readme-ov-file#tier-table"
-          rel="noopener noreferrer"
-          target="_blank">
-          <Button startIcon={<ArticleIcon />} variant="contained">
-            Tiers Table
-          </Button>
-        </Link>
-      </S.FlowCont>
-
-      <S.HowToCont>
-        <h3>How To Use</h3>
-        <ul>
-          <li>1. Check your tier on the My Page after log in.</li>
-          <li>2. Set the font and background color, then click Save Image.</li>
-          <li>
-            3. Click the Copy Code button, then attach the copied code to GitHub
-            README.
-          </li>
-          <li>4. Check the updated screen.</li>
-        </ul>
-        <Link
-          href="https://github.com/git-tiers/gittiers?tab=readme-ov-file#how-to-use"
-          rel="noopener noreferrer"
-          target="_blank">
-          <Button startIcon={<InfoIcon />} variant="contained">
-            How To Use
-          </Button>
-        </Link>
-      </S.HowToCont>
-      <S.Footer>
-        <p>
-          Git TIERS <span>by devwoodie</span>
-        </p>
-      </S.Footer>
+      <FlowCont />
+      <HowToCont />
+      <Footer />
     </S.Wrapper>
   );
 }
@@ -149,8 +87,8 @@ const S = {
     }
 
     .main-button {
-      margin-top: 100px;
-      background-color: ${Color.Primary};
+      margin: 100px 0;
+      background-color: ${Color.Black};
       width: 260px;
       padding: 10px 0;
       font-size: 18px;
@@ -159,114 +97,6 @@ const S = {
     img {
       object-fit: contain;
       width: 100%;
-    }
-  `,
-  MainCont: styled.div`
-    background-color: ${Color.Primary2};
-    padding: 150px 0;
-    margin-top: 150px;
-
-    h3 {
-      font-size: 50px;
-      margin-bottom: 100px;
-    }
-
-    > div {
-      margin-bottom: 100px;
-
-      &:last-child {
-        margin: 0;
-      }
-
-      h6 {
-        font-size: 28px;
-        color: ${Color.Primary};
-      }
-
-      p {
-        font-size: 18px;
-        margin: 22px 0;
-
-        u {
-          color: ${Color.Primary};
-        }
-      }
-    }
-  `,
-  FlowCont: styled.div`
-    padding: 150px 0;
-
-    h3 {
-      font-size: 50px;
-      margin-bottom: 50px;
-    }
-
-    .img-wrap {
-      margin: 0 auto;
-      width: 22%;
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-    }
-
-    p {
-      margin: 50px 0;
-      font-size: 18px;
-      line-height: 1.5;
-    }
-
-    button {
-      background-color: ${Color.Primary};
-      width: 260px;
-      padding: 10px 0;
-      font-size: 18px;
-    }
-  `,
-  HowToCont: styled.div`
-    background-color: ${Color.Primary3};
-    padding: 150px 0;
-
-    h3 {
-      font-size: 50px;
-      margin-bottom: 50px;
-    }
-
-    ul {
-      margin-bottom: 50px;
-
-      li {
-        font-size: 20px;
-        margin-bottom: 20px;
-      }
-    }
-
-    img {
-      display: block;
-      margin: 0 auto;
-    }
-
-    button {
-      background-color: ${Color.Primary};
-      margin-top: 60px;
-      width: 260px;
-      padding: 10px 0;
-      font-size: 18px;
-    }
-  `,
-  Footer: styled.div`
-    background-color: ${Color.Black};
-    padding: 30px 0;
-    color: ${Color.White};
-
-    p {
-      font-size: 24px;
-
-      span {
-        font-size: 16px;
-      }
     }
   `,
 };

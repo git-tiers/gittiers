@@ -39,7 +39,7 @@ export default function NoticePage() {
     <S.Wrapper>
       <Title
         title="Notice"
-        icon={<NotificationsIcon style={{ fontSize: '30px' }} />}
+        icon={<NotificationsIcon style={{ fontSize: '24px' }} />}
       />
       <S.NoticeWrap>
         {noticeData?.map((notice: TNotice) => (
@@ -63,9 +63,9 @@ export default function NoticePage() {
                 <S.NoticeDate>{notice.date}</S.NoticeDate>
                 <S.IconWrapper>
                   {openItems.has(notice.id) ? (
-                    <KeyboardArrowDownIcon />
-                  ) : (
                     <KeyboardArrowUpIcon />
+                  ) : (
+                    <KeyboardArrowDownIcon />
                   )}
                 </S.IconWrapper>
               </S.HeaderRight>
@@ -83,7 +83,7 @@ export default function NoticePage() {
 const S = {
   Wrapper: styled.div`
     width: 60%;
-    margin: 0 auto;
+    margin: 30px auto;
   `,
 
   NoticeWrap: styled.ul`
