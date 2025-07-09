@@ -2,18 +2,14 @@
 
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import styled from '@emotion/styled';
 import Button from '@mui/material/Button';
-import ArticleIcon from '@mui/icons-material/Article';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import InfoIcon from '@mui/icons-material/Info';
 
 import { Color } from '@/styles/color';
 import ChallengerIcon from '@/assets/images/tiers/9_challenger.png';
-import TierFlow from '@/assets/images/tier-flow.png';
 import { FlowCont } from '@/components/organisms/main/FlowCont';
 import { HowToCont } from '@/components/organisms/main/HowToCont';
 import { Footer } from '@/components/common/Footer';
