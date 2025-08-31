@@ -26,12 +26,8 @@ export const TierImage = ({
 
   return (
     <div style={{ minHeight: '220px' }}>
-      <div
-        id="tierCard"
-        style={{
-          backgroundColor: getTierBg(isMode),
-        }}>
-        <S.ImgWrap form={isCard} text={isText} mode={isMode}>
+      <div>
+        <S.ImgWrap id="tierCard" form={isCard} text={isText} mode={isMode}>
           <div>
             {tierImage && <img src={tierImage} alt="tier-image" />}
             {isText === 'exist' && isCard === 'image' && (
@@ -60,10 +56,9 @@ const S = {
     background-color: ${(props) => getTierBg(props.mode || 'light')};
     min-width: 170px;
     min-height: 170px;
-    border: 2px solid ${Color.Gray300};
+    border: 1px solid ${Color.Gray300};
     border-color: ${(props) =>
       props.mode === 'light' ? '#0d1117' : '#ffffff'};
-    border-radius: 12px;
     padding: 20px 30px;
     display: flex;
     justify-content: space-between;
