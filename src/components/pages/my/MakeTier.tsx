@@ -238,10 +238,6 @@ const S = {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-
-    #tierCard {
-      padding: 5px;
-    }
   `,
 
   ButtonWrap: styled.div`
